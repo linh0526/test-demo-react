@@ -1,24 +1,37 @@
 import logo from './logo.svg';
-import './App.css';
+import './App.scss';
 import { useDispatch, useSelector } from 'react-redux';
 import { increaseCounter, decreaseCounter } from './redux/action/counterAction';
-const App = () => {
-  const count = useSelector(state => state.counter.count);
-  const dispatch = useDispatch();
-
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Hello World with Lyan
-        </p>
-        <div>Count = {count}</div>
-        <button onClick={() => dispatch(increaseCounter())}>Increase</button>
-        <button onClick={() => dispatch(decreaseCounter())}>Decrease</button>
-      </header>
-    </div>
-  );
+import MyComponents from './components/MyComponents';
+import React from 'react';
+class App extends React.Component {
+    render() {
+        return (
+        <div>
+            Hello World
+            <MyComponents></MyComponents >
+        </div>
+        );
+    }
 }
+
+// const App = () => {
+//   const count = useSelector(state => state.counter.count);
+//   const dispatch = useDispatch();
+
+//   return (
+//     <div className="App">
+//       <header className="App-header">
+//         <img src={logo} className="App-logo" alt="logo" />
+//         <p>
+//           Hello World with Lyan &amp; Lyan
+//         </p>
+//         <div>Count = {count}</div>
+//         <button onClick={() => dispatch(increaseCounter())}>Increase</button>
+//         <button onClick={() => dispatch(decreaseCounter())}>Decrease</button>
+//       </header>
+//     </div>
+//   );
+// }
 
 export default App;
