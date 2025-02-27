@@ -1,54 +1,57 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./DisplayInfor.scss";
 import logo from "./../logo.svg";
 
-class DisplayInfor extends React.Component {
-    state = {
-        isShowListUser: true
-    }
-    HandleShowHide() {
-        this.setState({
-            isShowListUser: !this.state.isShowListUser
-        })
-    }
-    render() {
-        //destructuring array / object
-        const { listUsers } = this.props //object
+const DisplayInfor = (props) => {
+    //destructuring 
+    const { listUsers } = props //object
 
-        console.log(listUsers)
-        // console.table(listUsers)
-        return (
-            <div class="display-infor-container">
-                <div>
-                    <span onClick={() => { this.HandleShowHide() }}>
-                        {this.state.isShowListUser ? "Hide Users" : "Show Users"}
+    //destructuring assignment
+    const [isShowHideListUser, setShowHideListUser] = useState(true); //array, function,
+    
+    const handleShowHideListUser = () => {
+        setShowHideListUser(!isShowHideListUser);
+    }
+    
+    useEffect(() => {
+        setTimeout(() => {
+            document.title = "Lyan Web";
+        }, 3000);
+        console.log('>> call me useEfect');
+    });
+
+    return (
+        <div className="display-infor-container"> 
+            <div>
+                <span onClick={() => handleShowHideListUser()}>
+                    {isShowHideListUser ? "Hide List User" : "Show List User"}
                     </span>
-                </div>
-
-                {this.state.isShowListUser && <div>
+            </div>
+            {isShowHideListUser && 
+                <>
                     {listUsers.map((user, index) => {
                         return (
-                            <>
-                            <div key={user.id} class={user.age > 18 ? "red" : "blue"}>
-                                <p>Name: {user.name}</p>
-                                <p>Age: {user.age}</p>
+                            <div key={user.id}>
+                                <div  className={user.age > 18 ? "red" : "blue"}>
+                                    <p>Name: {user.name}</p>
+                                    <p>Age: {user.age}</p>
+                                </div>
+                                <div>
+                                    <button onClick={() => props.handleDeleteUser(user.id)}>X</button>
+                                </div>
+                                <hr/>
                             </div>
-                            <div>
-                                <button onClick={() => this.props.handleDeleteUser(user.id)}>X</button>
-                            </div>
-                            <hr/>
-                            </>
                         )
 
                     }
                     )}
-                </div >}
+                </>
+            }
 
-                <img src={logo}/>
-            </div>
+            <img src={logo}/>
+        </div>
 
-        )
-    }
+    )
 }
 
 export default DisplayInfor;
